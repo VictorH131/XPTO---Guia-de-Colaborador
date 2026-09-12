@@ -28,8 +28,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar Código do Repositório
-        uses: actions/checkout@v4
+      
+      - name: Baixar Artefato
+        uses: actions/download-artifact@v4
+        with:
+          name: codigo-Buildado
+
+      - name: extrair Artefato
+        run: unzip Calculadora.zip
+
+
+
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -42,16 +51,6 @@ jobs:
 
       - name: Executar Testes
         run: pytest
-
-
-
-      - name: Baixar Artefato
-        uses: actions/download-artifact@v4
-        with:
-          name: codigo-Buildado
-
-      - name: extrair Artefato
-        run: unzip Calculadora.zip
 
   deploy:
     needs: test
