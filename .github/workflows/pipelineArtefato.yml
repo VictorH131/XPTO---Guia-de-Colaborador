@@ -12,18 +12,6 @@ jobs:
       - name: Baixar Código do Repositório
         uses: actions/checkout@v4
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: "pip"
-
-      - name: Instalar Dependências
-        run: pip install -r requirements.txt
-
-      - name: Executar Testes
-        run: pytest
-
       - name: Gerar Artefato Zip
         run: zip -r Calculadora.zip .
 
@@ -52,6 +40,11 @@ jobs:
       - name: Instalar Dependências
         run: pip install -r requirements.txt
 
+      - name: Executar Testes
+        run: pytest
+
+
+
       - name: Baixar Artefato
         uses: actions/download-artifact@v4
         with:
@@ -59,13 +52,6 @@ jobs:
 
       - name: extrair Artefato
         run: unzip Calculadora.zip
-
-
-      - name: Executar Testes
-        run: pytest
-
-
-
 
   deploy:
     needs: test
